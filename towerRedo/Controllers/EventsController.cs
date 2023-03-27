@@ -6,6 +6,7 @@ public class EventsController : ControllerBase
 {
   private readonly EventsService _eventsService;
   private readonly Auth0Provider _a0;
+  private readonly TicketsService _tickets;
 
   public EventsController(EventsService eventsService, Auth0Provider auth0Provider)
   {
@@ -120,7 +121,7 @@ public class EventsController : ControllerBase
   {
     try
     {
-      List<Ticket> tickets = _eventsService.GetTickets(id);
+      List<Ticket> tickets = _tickets.GetTickets(id);
       return Ok(tickets);
     }
     catch (Exception e)
