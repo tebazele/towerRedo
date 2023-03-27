@@ -9,6 +9,7 @@ public class CommentsRepository
     _db = db;
   }
 
+  // CREATE
   internal Comment Create(Comment commentData)
   {
     string sql = @"
@@ -23,6 +24,7 @@ public class CommentsRepository
     return commentData;
   }
 
+  // DELETE
   internal void Delete(int id)
   {
     string sql = @"
@@ -31,6 +33,7 @@ public class CommentsRepository
     _db.Execute(sql, new { id });
   }
 
+  // EDIT
   internal Boolean Edit(Comment commentData)
   {
     string sql = @"
@@ -43,6 +46,7 @@ public class CommentsRepository
     return rows > 0;
   }
 
+  // GET ONE
   internal Comment GetOne(int commentId)
   {
     string sql = @"
