@@ -112,4 +112,24 @@ public class EventsRepository
     }, new { eventId }).ToList();
   }
 
+  internal List<TowerEvent> GetByQuery(string query)
+  {
+    string searchTerm = $"%{query}%";
+    string sql = @"
+    SELECT
+    e.*,
+    a.*
+    FROM jaEvents e
+    JOIN accounts a ON e.creatorId = a.id
+    WHERE e.type LIKE @searchTerm OR
+    e.name LIKE @searchTerm OR
+    e.description LIKE @searchTerm OR
+    e.location LIKE @searchTerm;
+    ";
+    return _db.Query<TowerEvent, Account, TowerEvent>(sql, (e, a) =>
+    {
+      e.Creator = a;
+      return e;
+    }, new { searchTerm }).ToList();
+  }
 }
