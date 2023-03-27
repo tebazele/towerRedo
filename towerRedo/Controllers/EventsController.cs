@@ -4,123 +4,123 @@ namespace towerRedo.Controllers;
 [Route("api/[controller]")]
 public class EventsController : ControllerBase
 {
-  private readonly EventsService _eventsService;
-  private readonly Auth0Provider _a0;
+    private readonly EventsService _eventsService;
+    private readonly Auth0Provider _a0;
 
-  public EventsController(EventsService eventsService, Auth0Provider auth0Provider)
-  {
-    _eventsService = eventsService;
-    _a0 = auth0Provider;
-  }
-
-  [HttpPost]
-  [Authorize]
-
-  public async Task<ActionResult<TowerEvent>> Create([FromBody] TowerEvent eventData)
-  {
-    try
+    public EventsController(EventsService eventsService, Auth0Provider auth0Provider)
     {
-      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
-      eventData.CreatorId = userInfo.Id;
-      TowerEvent towerEvent = _eventsService.Create(eventData);
-      towerEvent.Creator = userInfo;
-      return Ok(towerEvent);
+        _eventsService = eventsService;
+        _a0 = auth0Provider;
     }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
 
-  // GET ALL
-  [HttpGet]
-  public ActionResult<List<TowerEvent>> GetAll()
-  {
-    try
-    {
-      List<TowerEvent> towerEvents = _eventsService.GetAll();
-      return Ok(towerEvents);
-    }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
+    [HttpPost]
+    [Authorize]
 
-  // GET ONE
-  [HttpGet("{id}")]
-  public ActionResult<TowerEvent> GetOne(int id)
-  {
-    try
+    public async Task<ActionResult<TowerEvent>> Create([FromBody] TowerEvent eventData)
     {
-      TowerEvent towerEvent = _eventsService.GetOne(id);
-      return Ok(towerEvent);
+        try
+        {
+            Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+            eventData.CreatorId = userInfo.Id;
+            TowerEvent towerEvent = _eventsService.Create(eventData);
+            towerEvent.Creator = userInfo;
+            return Ok(towerEvent);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    catch (Exception e)
+
+    // GET ALL
+    [HttpGet]
+    public ActionResult<List<TowerEvent>> GetAll()
     {
-      return BadRequest(e.Message);
+        try
+        {
+            List<TowerEvent> towerEvents = _eventsService.GetAll();
+            return Ok(towerEvents);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-  }
 
-  // EDIT
-  [HttpPut("{id}")]
-  [Authorize]
-  public async Task<ActionResult<TowerEvent>> Edit(int id, [FromBody] TowerEvent eventData)
-  {
-    try
+    // GET ONE
+    [HttpGet("{id}")]
+    public ActionResult<TowerEvent> GetOne(int id)
     {
-      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
-      eventData.CreatorId = userInfo.Id;
-      TowerEvent updatedEvent = _eventsService.Edit(id, eventData);
-      return Ok(updatedEvent);
+        try
+        {
+            TowerEvent towerEvent = _eventsService.GetOne(id);
+            return Ok(towerEvent);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    catch (Exception e)
+
+    // EDIT
+    [HttpPut("{id}")]
+    [Authorize]
+    public async Task<ActionResult<TowerEvent>> Edit(int id, [FromBody] TowerEvent eventData)
     {
-      return BadRequest(e.Message);
+        try
+        {
+            Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+            eventData.CreatorId = userInfo.Id;
+            TowerEvent updatedEvent = _eventsService.Edit(id, eventData);
+            return Ok(updatedEvent);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-  }
 
-  // DELETE
-  [HttpDelete("{id}")]
-  [Authorize]
-  public async Task<ActionResult<String>> Cancel(int id)
-  {
-    try
+    // DELETE
+    [HttpDelete("{id}")]
+    [Authorize]
+    public async Task<ActionResult<String>> Cancel(int id)
     {
-      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
-      string message = _eventsService.Cancel(id, userInfo.Id);
-      return Ok(message);
+        try
+        {
+            Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+            string message = _eventsService.Cancel(id, userInfo.Id);
+            return Ok(message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    catch (Exception e)
+
+    // SECTION COMMENT
+
+    [HttpGet("{id}/comments")]
+    public ActionResult<List<Comment>> GetComments(int id)
     {
-      return BadRequest(e.Message);
+        try
+        {
+            List<Comment> comments = _eventsService.GetComments(id);
+            return Ok(comments);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-  }
 
-  // SECTION COMMENT
+    // SECTION TICKETS
 
-  [HttpGet("{id}/comments")]
-  public ActionResult<List<Comment>> GetComments(int id)
-  {
-    try
-    {
-      List<Comment> comments = _eventsService.GetComments(id);
-      return Ok(comments);
-    }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
+    // [HttpGet("{id}/tickets")]
 
-  // SECTION TICKETS
+    // SECTION STRETCH GOALS
 
-  [HttpGet("{id}/tickets")]
+    // GET SEARCH QUERY
 
-  // SECTION STRETCH GOALS
-
-  // GET SEARCH QUERY
-
-  [HttpGet("query")]
+    // [HttpGet("query")]
 
 }
