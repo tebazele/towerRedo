@@ -6,11 +6,13 @@ public class AccountController : ControllerBase
 {
   private readonly AccountService _accountService;
   private readonly Auth0Provider _auth0Provider;
+  private readonly TicketsService _ticketsService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider)
+  public AccountController(AccountService accountService, Auth0Provider auth0Provider, TicketsService ticketsService)
   {
     _accountService = accountService;
     _auth0Provider = auth0Provider;
+    _ticketsService = ticketsService;
   }
 
   [HttpGet]
@@ -48,38 +50,17 @@ public class AccountController : ControllerBase
 
   [HttpGet]
   [Authorize]
-  public async Task<ActionResult<TicketEvent>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  public async Task<ActionResult<List<TicketEvent>>> GetTickets()
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<TicketEvent> tickets = _ticketsService.GetByAccountId(userInfo.Id);
+      return Ok(tickets);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 }

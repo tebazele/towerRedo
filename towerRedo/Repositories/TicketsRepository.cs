@@ -71,6 +71,25 @@ namespace towerRedo.Repositories
       }, new { eventId }).ToList();
     }
 
+    // GET BY ACCOUNT ID
+    internal List<TicketEvent> GetByAccountId(string accountId)
+    {
+      string sql = @"
+      SELECT
+      e.*,
+      a.*,
+      t.*
+      FROM jaEvents e
+      JOIN accounts a ON e.creatorId = a.id
+      WHERE t.accountId = a.id;
+      ";
+      return _db.Query<TicketEvent, Account, Ticket, TicketEvent>(sql, (te, a, t) =>
+      {
+        te.Creator = a;
+        te.TicketId = t.Id;
+        return te;
+      }, new { accountId }).ToList();
+    }
   }
 
 

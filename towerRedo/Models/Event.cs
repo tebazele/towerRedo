@@ -20,6 +20,6 @@ public class TowerEvent : DbItem<int>
 
 public class TicketEvent : TowerEvent
 {
-  public int EventId { get; set; }
+  public int TicketId { get; set; }
   public string AccountId { get; set; }
 }

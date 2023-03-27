@@ -70,5 +70,13 @@ namespace towerRedo.Services
       }
       return ticket;
     }
+
+
+    // GET BY ACCOUNT ID
+    internal List<TicketEvent> GetByAccountId(string accountId)
+    {
+      List<TicketEvent> tickets = _repo.GetByAccountId(accountId);
+      return tickets;
+    }
   }
 }
