@@ -37,6 +37,8 @@ public class Startup
         services.AddTransient<EventsService>();
         services.AddTransient<CommentsRepository>();
         services.AddTransient<CommentsService>();
+        services.AddTransient<TicketsRepository>();
+        services.AddTransient<TicketsService>();
     }
 
     private void ConfigureCors(IServiceCollection services)
