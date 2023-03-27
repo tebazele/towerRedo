@@ -28,7 +28,7 @@ public class AccountService
   {
     Account original = GetProfileByEmail(userEmail);
     original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
-    original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
+    original.Picture = editData.Picture ?? original.Picture;
     return _repo.Edit(original);
   }
 }
