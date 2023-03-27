@@ -10,12 +10,14 @@ public class CommentsService
     _repo = repo;
   }
 
+  // CREATE
   internal Comment Create(Comment commentData)
   {
     Comment comment = _repo.Create(commentData);
     return comment;
   }
 
+  // GET ONE
   internal Comment GetOne(int commentId)
   {
     Comment comment = _repo.GetOne(commentId);
@@ -26,6 +28,7 @@ public class CommentsService
     return comment;
   }
 
+  // EDIT
   internal Comment Edit(Comment commentData, int commentId)
   {
     Comment comment = this.GetOne(commentId);
@@ -34,7 +37,6 @@ public class CommentsService
       throw new Exception("You do not have permission to edit this comment.");
     }
     comment.Body = commentData.Body ?? comment.Body;
-    comment.IsAttending = commentData.IsAttending ?? comment.IsAttending;
 
     Boolean isEdited = _repo.Edit(comment);
     if (isEdited == false)
@@ -44,6 +46,7 @@ public class CommentsService
     return comment;
   }
 
+  // DELETE
   internal string Delete(int commentId, string userId)
   {
     Comment comment = this.GetOne(commentId);
