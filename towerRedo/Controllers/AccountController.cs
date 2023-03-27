@@ -46,6 +46,40 @@ public class AccountController : ControllerBase
 
   // SECTION TICKETS
 
-  // [HttpGet]
-  // [Authorize]
+  [HttpGet]
+  [Authorize]
+  public async Task<ActionResult<TicketEvent>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
