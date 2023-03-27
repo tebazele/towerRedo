@@ -16,5 +16,10 @@ public class TowerEvent : DbItem<int>
   public Type? Type { get; set; }
   public Account Creator { get; set; }
   public String CreatorId { get; set; }
+}
 
+public class TicketEvent : TowerEvent
+{
+  public int EventId { get; set; }
+  public string AccountId { get; set; }
 }

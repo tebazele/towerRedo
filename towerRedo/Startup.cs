@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using MySqlConnector;
 
 namespace towerRedo;
 
@@ -42,14 +45,14 @@ public class Startup
     {
       options.AddPolicy("CorsDevPolicy", builder =>
             {
-            builder
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials()
-              .WithOrigins(new string[]{
+              builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins(new string[]{
                 "http://localhost:8080", "http://localhost:8081"
+              });
             });
-          });
     });
   }
 

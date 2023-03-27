@@ -9,6 +9,7 @@ public class EventsRepository
     _db = db;
   }
 
+  // CREATE
   internal TowerEvent Create(TowerEvent eventData)
   {
     string sql = @"
@@ -24,6 +25,7 @@ public class EventsRepository
     return eventData;
   }
 
+  // EDIT
   internal bool Edit(TowerEvent originalEvent)
   {
     string sql = @"
@@ -42,6 +44,7 @@ public class EventsRepository
     return rows > 0;
   }
 
+  // GET ALL
   internal List<TowerEvent> GetAll()
   {
     string sql = @"
@@ -59,6 +62,7 @@ public class EventsRepository
     }).ToList();
   }
 
+  // GET ONE
   internal TowerEvent GetOne(int id)
   {
     string sql = @"
@@ -76,6 +80,7 @@ public class EventsRepository
     }, new { id }).FirstOrDefault();
   }
 
+  // DELETE
   internal void Remove(int eventId)
   {
     string sql = @"
@@ -89,6 +94,7 @@ public class EventsRepository
 
   // SECTION COMMENTS
 
+  // GET COMMENTS BY EVENT ID
   internal List<Comment> GetComments(int eventId)
   {
     string sql = @"
