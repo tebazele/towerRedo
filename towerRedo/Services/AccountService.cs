@@ -27,7 +27,7 @@ public class AccountService
   internal Account Edit(Account editData, string userEmail)
   {
     Account original = GetProfileByEmail(userEmail);
-    original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
+    original.Name = editData.Name ?? original.Name;
     original.Picture = editData.Picture ?? original.Picture;
     return _repo.Edit(original);
   }
