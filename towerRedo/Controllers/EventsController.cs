@@ -81,15 +81,14 @@ public class EventsController : ControllerBase
   }
 
   // DELETE
-  // TODO CHANGE THIS TO CANCELLED EVENT -- COMMENTS IN SERVICE
   [HttpDelete("{id}")]
   [Authorize]
-  public async Task<ActionResult<String>> Remove(int id)
+  public async Task<ActionResult<String>> Cancel(int id)
   {
     try
     {
       Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
-      string message = _eventsService.Remove(id, userInfo.Id);
+      string message = _eventsService.Cancel(id, userInfo.Id);
       return Ok(message);
     }
     catch (Exception e)
@@ -105,7 +104,7 @@ public class EventsController : ControllerBase
   {
     try
     {
-      Comment comments = _eventsService.GetComments(id);
+      List<Comment> comments = _eventsService.GetComments(id);
       return Ok(comments);
     }
     catch (Exception e)

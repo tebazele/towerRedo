@@ -86,4 +86,24 @@ public class EventsRepository
 
     _db.Execute(sql, new { eventId });
   }
+
+  // SECTION COMMENTS
+
+  internal List<Comment> GetComments(int eventId)
+  {
+    string sql = @"
+    SELECT
+    c.*,
+    a.*
+    FROM jaComments c,
+    JOIN accounts a ON c.creatorId = a.id
+    WHERE c.eventId = @eventId;
+    ";
+    return _db.Query<Comment, Account, Comment>(sql, (c, a) =>
+    {
+      c.Creator = a;
+      return c;
+    }, new { eventId }).ToList();
+  }
+
 }

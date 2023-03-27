@@ -61,26 +61,29 @@ public class EventsService
     return originalEvent;
   }
 
-  // DELETE
-  // TODO CHANGE THIS TO A CANCELLED EVENT BY ADDING PROPERTY TO EVENT, AND SWITCH TO TRUE, THEN SAVE
-  internal String Remove(int eventId, string userId)
+  // CANCEL
+  internal String Cancel(int eventId, string userId)
   {
     TowerEvent towerEvent = this.GetOne(eventId);
     if (towerEvent.CreatorId == userId)
     {
       throw new Exception("You can't edit " + towerEvent.Name + " event. It was created by someone else.");
     }
-    _repo.Remove(eventId);
-    return "Event has been deleted";
+    towerEvent.IsCancelled = true;
+    _repo.Edit(towerEvent);
+    return "Event has been cancelled.";
   }
+
+  // SECTION COMMENTS
+
+  // GET ALL
+  internal List<Comment> GetComments(int eventId)
+  {
+    List<Comment> comments = _repo.GetComments(eventId);
+    return comments;
+  }
+
 }
 
-// SECTION COMMENTS
-
-// GET ALL
-internal Comment GetComments(int eventId)
-{
-  throw new NotImplementedException();
-}
 
 
