@@ -1,19 +1,19 @@
 namespace towerRedo.Controllers
 {
-  [ApiController]
-  [Route("api/[controller]")]
-  public class ProfilesController : ControllerBase
-  {
-    private readonly ProfilesService _profilesService;
-
-    public ProfilesController(ProfilesService profilesService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProfilesController : ControllerBase
     {
-      _profilesService = profilesService;
+        private readonly ProfilesService _profilesService;
+
+        public ProfilesController(ProfilesService profilesService)
+        {
+            _profilesService = profilesService;
+        }
+
+        // GET ONE
+        // [HttpGet("{id}")]
+
+
     }
-
-    // GET ONE
-    [HttpGet("{id}")]
-
-
-  }
 }

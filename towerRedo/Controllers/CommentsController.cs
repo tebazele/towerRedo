@@ -17,13 +17,55 @@ public class CommentsController : ControllerBase
   // CREATE
   [HttpPost]
   [Authorize]
+  public async Task<ActionResult<Comment>> Create([FromBody] Comment commentData)
+  {
+    try
+    {
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      commentData.CreatorId = userInfo.Id;
+      Comment comment = _commentsService.Create(commentData);
+      return Ok(comment);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
   // EDIT -- EXTRA
   [HttpPut("{id}")]
   [Authorize]
+  public async Task<ActionResult<Comment>> Edit([FromBody] Comment commentData, int id)
+  {
+    try
+    {
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      commentData.CreatorId = userInfo.Id;
+      Comment editedComment = _commentsService.Edit(commentData, id);
+      return Ok(editedComment);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
 
   // DELETE
   [HttpDelete("{id}")]
   [Authorize]
+  public async Task<ActionResult<string>> Delete(int id)
+  {
+    try
+    {
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      string message = _commentsService.Delete(id, userInfo.Id);
+      return Ok(message);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
 }
