@@ -27,4 +27,12 @@ public class AccountController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+  [HttpPut]
+  [Authorize]
+
+  // SECTION TICKETS
+
+  [HttpGet]
+  [Authorize]
 }
