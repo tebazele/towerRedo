@@ -37,7 +37,6 @@ public class CommentsService
       throw new Exception("You do not have permission to edit this comment.");
     }
     comment.Body = commentData.Body ?? comment.Body;
-    comment.IsAttending = commentData.IsAttending ?? comment.IsAttending;
 
     Boolean isEdited = _repo.Edit(comment);
     if (isEdited == false)

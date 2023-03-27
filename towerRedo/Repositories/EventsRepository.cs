@@ -95,7 +95,7 @@ public class EventsRepository
     SELECT
     c.*,
     a.*
-    FROM jaComments c,
+    FROM jaComments c
     JOIN accounts a ON c.creatorId = a.id
     WHERE c.eventId = @eventId;
     ";

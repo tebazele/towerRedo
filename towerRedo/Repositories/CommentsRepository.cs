@@ -37,10 +37,9 @@ public class CommentsRepository
   internal Boolean Edit(Comment commentData)
   {
     string sql = @"
-    UPDATE
+    UPDATE jaComments SET
     body = @body,
-    isAttending = @isAttending
-    WHERE id = @id
+    WHERE id = @id;
     ";
     int rows = _db.Execute(sql, commentData);
     return rows > 0;
