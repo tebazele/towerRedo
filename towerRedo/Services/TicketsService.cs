@@ -78,5 +78,12 @@ namespace towerRedo.Services
       List<TicketEvent> tickets = _repo.GetByAccountId(accountId);
       return tickets;
     }
+
+    // GET TICKETS
+    internal List<Ticket> GetTickets(int eventId)
+    {
+      List<Ticket> tickets = _repo.GetByEventId(eventId);
+      return tickets;
+    }
   }
 }
