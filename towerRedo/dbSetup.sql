@@ -33,7 +33,7 @@ DROP TABLE jaEvents;
 
 CREATE TABLE
     IF NOT EXISTS jaTickets(
-        id INT NOT NULL PRIMARY KEY,
+        id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
         eventId INT NOT NULL,
         accountId VARCHAR(255) NOT NULL,
         FOREIGN KEY (accountId) REFERENCES accounts (id) ON DELETE CASCADE,
@@ -44,7 +44,7 @@ DROP TABLE jaTickets;
 
 CREATE TABLE
     IF NOT EXISTS jaComments (
-        id INT NOT NULL PRIMARY KEY,
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         creatorId VARCHAR(255) NOT NULL,
         eventId INT NOT NULL,
         body VARCHAR(999) NOT NULL,
