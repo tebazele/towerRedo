@@ -23,7 +23,7 @@ CREATE TABLE
         coverImg VARCHAR(1000) NOT NULL,
         location VARCHAR(255),
         capacity INT,
-        startDate VARCHAR(255),
+        startDate VARCHAR(255) NOT NULL,
         isCanceled BOOLEAN NOT NULL DEFAULT false,
         type VARCHAR(255),
         Foreign Key (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
