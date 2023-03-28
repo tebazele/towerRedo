@@ -48,6 +48,8 @@ namespace towerRedo.Services
             }
             Ticket ticket = _repo.Create(ticketData);
             List<Comment> comments = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
+
+            // SECTION foreach edit isAttending on these comments and call commentsRepo.edit()
             return ticket;
         }
 
