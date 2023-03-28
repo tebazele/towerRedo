@@ -2,104 +2,104 @@ namespace towerRedo.Services;
 
 public class EventsService
 {
-  private readonly EventsRepository _repo;
-  private readonly TicketsService _tickets;
+    private readonly EventsRepository _repo;
+    // private readonly TicketsService _tickets;
 
-  public EventsService(EventsRepository repo, TicketsService tickets)
-  {
-    _repo = repo;
-    _tickets = tickets;
-  }
-
-  // SECTION EVENT
-
-  // GET ONE
-  internal TowerEvent GetOne(int eventId)
-  {
-    TowerEvent towerEvent = _repo.GetOne(eventId);
-    if (towerEvent == null)
+    public EventsService(EventsRepository repo)
     {
-      throw new Exception("Event does not exist.");
+        _repo = repo;
+        // _tickets = tickets;
     }
-    return towerEvent;
-  }
 
-  // GET ALL
-  internal List<TowerEvent> GetAll()
-  {
-    List<TowerEvent> towerEvents = _repo.GetAll();
-    return towerEvents;
-  }
+    // SECTION EVENT
 
-  // POST 
-  internal TowerEvent Create(TowerEvent eventData)
-  {
-    TowerEvent towerEvent = _repo.Create(eventData);
-    return towerEvent;
-  }
-
-  // EDIT 
-  internal TowerEvent Edit(int eventId, TowerEvent eventBody)
-  {
-    TowerEvent originalEvent = this.GetOne(eventId);
-    if (eventBody.CreatorId != originalEvent.CreatorId)
+    // GET ONE
+    internal TowerEvent GetOne(int eventId)
     {
-      throw new Exception("You do not have permission to edit " + originalEvent.Name + ".");
+        TowerEvent towerEvent = _repo.GetOne(eventId);
+        if (towerEvent == null)
+        {
+            throw new Exception("Event does not exist.");
+        }
+        return towerEvent;
     }
-    originalEvent.Name = eventBody.Name ?? originalEvent.Name;
-    originalEvent.Description = eventBody.Description ?? originalEvent.Description;
-    originalEvent.CoverImg = eventBody.CoverImg ?? originalEvent.CoverImg;
-    originalEvent.IsCancelled = eventBody.IsCancelled ?? originalEvent.IsCancelled;
-    originalEvent.Location = eventBody.Location ?? originalEvent.Location;
-    originalEvent.Capacity = eventBody.Capacity ?? originalEvent.Capacity;
-    originalEvent.StartDate = eventBody.StartDate ?? originalEvent.StartDate;
-    originalEvent.Type = eventBody.Type ?? originalEvent.Type;
 
-    bool edited = _repo.Edit(originalEvent);
-    if (edited == false)
+    // GET ALL
+    internal List<TowerEvent> GetAll()
     {
-      throw new Exception("Something went wrong with SQL Tables");
+        List<TowerEvent> towerEvents = _repo.GetAll();
+        return towerEvents;
     }
-    return originalEvent;
-  }
 
-  // CANCEL
-  internal String Cancel(int eventId, string userId)
-  {
-    TowerEvent towerEvent = this.GetOne(eventId);
-    if (towerEvent.CreatorId == userId)
+    // POST 
+    internal TowerEvent Create(TowerEvent eventData)
     {
-      throw new Exception("You can't edit " + towerEvent.Name + " event. It was created by someone else.");
+        TowerEvent towerEvent = _repo.Create(eventData);
+        return towerEvent;
     }
-    towerEvent.IsCancelled = true;
-    _repo.Edit(towerEvent);
-    return "Event has been cancelled.";
-  }
 
-  // SEARCH FUNCTION
-  internal List<TowerEvent> GetByQuery(string query)
-  {
-    List<TowerEvent> towerEvent = _repo.GetByQuery(query);
-    return towerEvent;
-  }
+    // EDIT 
+    internal TowerEvent Edit(int eventId, TowerEvent eventBody)
+    {
+        TowerEvent originalEvent = this.GetOne(eventId);
+        if (eventBody.CreatorId != originalEvent.CreatorId)
+        {
+            throw new Exception("You do not have permission to edit " + originalEvent.Name + ".");
+        }
+        originalEvent.Name = eventBody.Name ?? originalEvent.Name;
+        originalEvent.Description = eventBody.Description ?? originalEvent.Description;
+        originalEvent.CoverImg = eventBody.CoverImg ?? originalEvent.CoverImg;
+        originalEvent.IsCancelled = eventBody.IsCancelled ?? originalEvent.IsCancelled;
+        originalEvent.Location = eventBody.Location ?? originalEvent.Location;
+        originalEvent.Capacity = eventBody.Capacity ?? originalEvent.Capacity;
+        originalEvent.StartDate = eventBody.StartDate ?? originalEvent.StartDate;
+        originalEvent.Type = eventBody.Type ?? originalEvent.Type;
 
-  // SECTION COMMENTS
+        bool edited = _repo.Edit(originalEvent);
+        if (edited == false)
+        {
+            throw new Exception("Something went wrong with SQL Tables");
+        }
+        return originalEvent;
+    }
 
-  // GET ALL
-  internal List<Comment> GetComments(int eventId)
-  {
-    List<Comment> comments = _repo.GetComments(eventId);
-    return comments;
-  }
+    // CANCEL
+    internal String Cancel(int eventId, string userId)
+    {
+        TowerEvent towerEvent = this.GetOne(eventId);
+        if (towerEvent.CreatorId == userId)
+        {
+            throw new Exception("You can't edit " + towerEvent.Name + " event. It was created by someone else.");
+        }
+        towerEvent.IsCancelled = true;
+        _repo.Edit(towerEvent);
+        return "Event has been cancelled.";
+    }
 
-  // SECTION TICKETS
+    // SEARCH FUNCTION
+    internal List<TowerEvent> GetByQuery(string query)
+    {
+        List<TowerEvent> towerEvent = _repo.GetByQuery(query);
+        return towerEvent;
+    }
 
-  // GET TICKETS
-  internal List<Ticket> GetTickets(int eventId)
-  {
-    List<Ticket> tickets = _tickets.GetByEventId(eventId);
-    return tickets;
-  }
+    // SECTION COMMENTS
+
+    // GET ALL
+    internal List<Comment> GetComments(int eventId)
+    {
+        List<Comment> comments = _repo.GetComments(eventId);
+        return comments;
+    }
+
+    // SECTION TICKETS
+
+    // GET TICKETS
+    // internal List<Ticket> GetTickets(int eventId)
+    // {
+    //   List<Ticket> tickets = _tickets.GetByEventId(eventId);
+    //   return tickets;
+    // }
 }
 
 
