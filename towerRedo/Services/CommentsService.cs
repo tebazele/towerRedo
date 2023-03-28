@@ -4,6 +4,7 @@ public class CommentsService
 {
 
   private readonly CommentsRepository _repo;
+  private readonly TicketsService _tickets;
 
   public CommentsService(CommentsRepository repo)
   {
@@ -13,6 +14,14 @@ public class CommentsService
   // CREATE
   internal Comment Create(Comment commentData)
   {
+    List<TicketEvent> tickets = _tickets.GetByAccountId(commentData.CreatorId);
+    foreach (TicketEvent te in tickets)
+    {
+      if (te.AccountId == commentData.CreatorId)
+      {
+        commentData.IsAttending = true;
+      }
+    }
     Comment comment = _repo.Create(commentData);
     return comment;
   }
