@@ -38,7 +38,7 @@ public class CommentsRepository
     {
         string sql = @"
     UPDATE jaComments SET
-    body = @body,
+    body = @body
     WHERE id = @id;
     ";
         int rows = _db.Execute(sql, commentData);
