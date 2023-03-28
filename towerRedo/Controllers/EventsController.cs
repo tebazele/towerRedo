@@ -9,7 +9,6 @@ public class EventsController : ControllerBase
   private readonly TicketsService _tickets;
   private readonly CommentsService _comments;
 
-<<<<<<< HEAD
   public EventsController(EventsService eventsService, Auth0Provider auth0Provider, TicketsService tickets, CommentsService comments)
   {
     _eventsService = eventsService;
@@ -30,18 +29,6 @@ public class EventsController : ControllerBase
       TowerEvent towerEvent = _eventsService.Create(eventData);
       towerEvent.Creator = userInfo;
       return Ok(towerEvent);
-=======
-    private readonly CommentsService _comments;
-
-
-
-    public EventsController(EventsService eventsService, Auth0Provider auth0Provider, TicketsService tickets, CommentsService comments)
-    {
-        _eventsService = eventsService;
-        _a0 = auth0Provider;
-        _tickets = tickets;
-        _comments = comments;
->>>>>>> 494b97e76d008f25729e940a9df0088ed5adee18
     }
     catch (Exception e)
     {
