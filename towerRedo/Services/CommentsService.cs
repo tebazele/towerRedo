@@ -5,18 +5,20 @@ public class CommentsService
 
   private readonly CommentsRepository _repo;
   private readonly TicketsService _tickets;
+  private readonly EventsRepository _events;
 
-  public CommentsService(CommentsRepository repo, TicketsService tickets)
+  public CommentsService(CommentsRepository repo, TicketsService tickets, EventsRepository events)
   {
     _repo = repo;
     _tickets = tickets;
+    _events = events;
   }
 
   // CREATE
   internal Comment Create(Comment commentData)
   {
-    List<TicketEvent> tickets = _tickets.GetByAccountId(commentData.CreatorId);
-    foreach (TicketEvent te in tickets)
+    List<Ticket> tickets = _tickets.GetByEventId(commentData.EventId);
+    foreach (Ticket te in tickets)
     {
       if (te.AccountId == commentData.CreatorId)
       {

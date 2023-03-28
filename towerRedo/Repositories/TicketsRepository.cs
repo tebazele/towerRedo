@@ -79,16 +79,15 @@ namespace towerRedo.Repositories
       a.*,
       t.*
       FROM jaEvents e
-      JOIN accounts a ON @accountId = a.id
+      JOIN accounts a ON e.creatorId = a.id
       JOIN jaTickets t ON t.eventId = e.id
-      WHERE t.accountId = a.id;
+      WHERE t.accountId = @accountId;
       ";
       return _db.Query<TicketEvent, Account, Ticket, TicketEvent>(sql, (te, a, t) =>
       {
         te.Creator = a;
         te.TicketId = t.Id;
-        te.AccountId = a.Id;
-
+        te.AccountId = t.AccountId;
         return te;
       }, new { accountId }).ToList();
     }
