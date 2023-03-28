@@ -18,7 +18,7 @@ public class CommentsService
     List<TicketEvent> tickets = _tickets.GetByAccountId(commentData.CreatorId);
     foreach (TicketEvent te in tickets)
     {
-      if (te.AccountId == commentData.CreatorId)
+      if (te.CreatorId == commentData.CreatorId)
       {
         commentData.IsAttending = true;
       }
