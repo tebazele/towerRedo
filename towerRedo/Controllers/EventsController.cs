@@ -141,7 +141,7 @@ public class EventsController : ControllerBase
         try
         {
             List<TowerEvent> towerEvent = _eventsService.GetByQuery(query);
-            return Ok();
+            return Ok(towerEvent);
         }
         catch (Exception e)
         {
