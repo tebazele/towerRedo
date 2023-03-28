@@ -48,7 +48,7 @@ public class AccountController : ControllerBase
 
     // SECTION TICKETS
 
-    [HttpGet("/tickets")]
+    [HttpGet("tickets")]
     [Authorize]
     public async Task<ActionResult<List<TicketEvent>>> GetTickets()
     {
