@@ -94,23 +94,7 @@ public class EventsRepository
 
   // SECTION COMMENTS
 
-  // GET COMMENTS BY EVENT ID
-  internal List<Comment> GetComments(int eventId)
-  {
-    string sql = @"
-    SELECT
-    c.*,
-    a.*
-    FROM jaComments c
-    JOIN accounts a ON c.creatorId = a.id
-    WHERE c.eventId = @eventId;
-    ";
-    return _db.Query<Comment, Account, Comment>(sql, (c, a) =>
-    {
-      c.Creator = a;
-      return c;
-    }, new { eventId }).ToList();
-  }
+
 
   internal List<TowerEvent> GetByQuery(string query)
   {

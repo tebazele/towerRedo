@@ -83,12 +83,7 @@ public class EventsService
 
   // SECTION COMMENTS
 
-  // GET ALL
-  internal List<Comment> GetComments(int eventId)
-  {
-    List<Comment> comments = _repo.GetComments(eventId);
-    return comments;
-  }
+
 }
 
 

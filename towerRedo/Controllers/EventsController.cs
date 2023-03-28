@@ -7,12 +7,14 @@ public class EventsController : ControllerBase
   private readonly EventsService _eventsService;
   private readonly Auth0Provider _a0;
   private readonly TicketsService _tickets;
+  private readonly CommentsService _comments;
 
-  public EventsController(EventsService eventsService, Auth0Provider auth0Provider, TicketsService tickets)
+  public EventsController(EventsService eventsService, Auth0Provider auth0Provider, TicketsService tickets, CommentsService comments)
   {
     _eventsService = eventsService;
     _a0 = auth0Provider;
     _tickets = tickets;
+    _comments = comments;
   }
 
   [HttpPost]
@@ -106,7 +108,9 @@ public class EventsController : ControllerBase
   {
     try
     {
-      List<Comment> comments = _eventsService.GetComments(id);
+
+      List<Comment> firstComments = _comments.GetComments(id);
+      List<Comment> comments = _comments.IsAttending(List < Comment > firstComments);
       return Ok(comments);
     }
     catch (Exception e)
