@@ -25,8 +25,16 @@ namespace towerRedo.Services
     // CREATE
     internal Ticket Create(Ticket ticketData)
     {
-      Ticket ticket = _repo.Create(ticketData);
+
       TowerEvent towerEvent = _events.GetOne(ticketData.EventId);
+      List<TicketEvent> accountTicket = this.GetByAccountId(ticketData.AccountId);
+      foreach (TicketEvent te in accountTicket)
+      {
+        if (te.Id == towerEvent.Id)
+        {
+          throw new Exception("You already have a ticket to this event.");
+        }
+      }
       if (towerEvent.Capacity > 0)
       {
         towerEvent.Capacity++;
@@ -36,6 +44,7 @@ namespace towerRedo.Services
       {
         throw new Exception(towerEvent.Name + " is Sold Out!");
       }
+      Ticket ticket = _repo.Create(ticketData);
       return ticket;
     }
 
