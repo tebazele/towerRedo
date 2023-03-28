@@ -6,11 +6,13 @@ public class EventsController : ControllerBase
 {
     private readonly EventsService _eventsService;
     private readonly Auth0Provider _a0;
+    private readonly TicketsService _tickets;
 
-    public EventsController(EventsService eventsService, Auth0Provider auth0Provider)
+    public EventsController(EventsService eventsService, Auth0Provider auth0Provider, TicketsService tickets)
     {
         _eventsService = eventsService;
         _a0 = auth0Provider;
+        _tickets = tickets;
     }
 
     [HttpPost]
@@ -115,19 +117,19 @@ public class EventsController : ControllerBase
 
     // SECTION TICKETS
 
-    // [HttpGet("{id}/tickets")]
-    // public ActionResult<List<Ticket>> GetTickets(int id)
-    // {
-    //   try
-    //   {
-    //     List<Ticket> tickets = _eventsService.GetTickets(id);
-    //     return Ok(tickets);
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
+    [HttpGet("{id}/tickets")]
+    public ActionResult<List<Ticket>> GetTickets(int id)
+    {
+        try
+        {
+            List<Ticket> tickets = _tickets.GetTickets(id);
+            return Ok(tickets);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 
     // SECTION STRETCH GOALS
 

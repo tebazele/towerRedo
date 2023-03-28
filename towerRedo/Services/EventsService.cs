@@ -4,7 +4,7 @@ public class EventsService
 {
     private readonly EventsRepository _repo;
 
-    public EventsService(EventsRepository repo, TicketsService tickets)
+    public EventsService(EventsRepository repo)
     {
         _repo = repo;
     }
