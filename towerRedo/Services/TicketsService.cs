@@ -50,6 +50,13 @@ namespace towerRedo.Services
             List<Comment> comments = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
 
             // SECTION foreach edit isAttending on these comments and call commentsRepo.edit()
+            foreach (Comment c in comments)
+            {
+                c.IsAttending = true;
+                _commentsRepo.Edit(c);
+            }
+
+
             return ticket;
         }
 

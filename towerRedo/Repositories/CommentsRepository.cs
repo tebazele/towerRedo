@@ -88,12 +88,13 @@ public class CommentsRepository
     c.*,
     e.*
     FROM jaComments c
+    JOIN jaEvents e ON c.eventId = e.id
     WHERE @eventId = e.id AND @accountId = c.creatorId;
     ";
         return _db.Query<Comment, TowerEvent, Account, Comment>(sql, (c, e, a) =>
         {
             c.Creator = a;
             return c;
-        }, new { eventId }).ToList();
+        }, new { eventId, accountId }).ToList();
     }
 }
