@@ -38,7 +38,8 @@ public class CommentsRepository
   {
     string sql = @"
     UPDATE jaComments SET
-    body = @body
+    body = @body,
+    isAttending = @isAttending
     WHERE id = @id;
     ";
     int rows = _db.Execute(sql, commentData);
@@ -86,11 +87,12 @@ public class CommentsRepository
     string sql = @"
     SELECT
     c.*,
-    e.*
+    e.*,
+    a.*
     FROM jaComments c
-    JOIN jaEvents e ON e.id = @eventId
+    JOIN jaEvents e ON e.id = c.eventId
     JOIN accounts a ON a.id = c.creatorId
-    WHERE c.creatorId = @accountId && c.eventId = @eventId
+    WHERE c.eventId = @eventId && c.creatorId = @accountId
     ";
     return _db.Query<Comment, TowerEvent, Account, Comment>(sql, (c, e, a) =>
     {
