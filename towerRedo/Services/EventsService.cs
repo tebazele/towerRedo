@@ -3,12 +3,10 @@ namespace towerRedo.Services;
 public class EventsService
 {
     private readonly EventsRepository _repo;
-    // private readonly TicketsService _tickets;
 
-    public EventsService(EventsRepository repo)
+    public EventsService(EventsRepository repo, TicketsService tickets)
     {
         _repo = repo;
-        // _tickets = tickets;
     }
 
     // SECTION EVENT
@@ -91,16 +89,10 @@ public class EventsService
         List<Comment> comments = _repo.GetComments(eventId);
         return comments;
     }
-
-    // SECTION TICKETS
-
-    // GET TICKETS
-    // internal List<Ticket> GetTickets(int eventId)
-    // {
-    //   List<Ticket> tickets = _tickets.GetByEventId(eventId);
-    //   return tickets;
-    // }
 }
+
+
+
 
 
 

@@ -34,7 +34,6 @@ namespace towerRedo.Repositories
       return rows > 0;
     }
 
-
     // GET BY TICKET ID
     internal Ticket GetOne(int id)
     {
@@ -91,6 +90,4 @@ namespace towerRedo.Repositories
       }, new { accountId }).ToList();
     }
   }
-
-
 }
