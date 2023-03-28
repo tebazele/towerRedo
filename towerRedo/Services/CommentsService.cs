@@ -6,9 +6,10 @@ public class CommentsService
   private readonly CommentsRepository _repo;
   private readonly TicketsService _tickets;
 
-  public CommentsService(CommentsRepository repo)
+  public CommentsService(CommentsRepository repo, TicketsService tickets)
   {
     _repo = repo;
+    _tickets = tickets;
   }
 
   // CREATE
