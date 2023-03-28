@@ -29,6 +29,13 @@ public class CommentsService
     return comment;
   }
 
+  // GET ALL
+  internal List<Comment> GetComments(int eventId)
+  {
+    List<Comment> comments = _repo.GetComments(eventId);
+    return comments;
+  }
+
   // GET ONE
   internal Comment GetOne(int commentId)
   {
@@ -49,6 +56,7 @@ public class CommentsService
       throw new Exception("You do not have permission to edit this comment.");
     }
     comment.Body = commentData.Body ?? comment.Body;
+    comment.IsAttending = commentData.IsAttending ?? comment.IsAttending;
 
     Boolean isEdited = _repo.Edit(comment);
     if (isEdited == false)

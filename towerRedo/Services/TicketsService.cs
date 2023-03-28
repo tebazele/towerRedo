@@ -5,11 +5,13 @@ namespace towerRedo.Services
 
     private readonly TicketsRepository _repo;
     private readonly EventsService _events;
+    private readonly CommentsRepository _commentsRepo;
 
-    public TicketsService(TicketsRepository repo, EventsService events)
+    public TicketsService(TicketsRepository repo, EventsService events, CommentsRepository commentsRepo)
     {
       _repo = repo;
       _events = events;
+      _commentsRepo = commentsRepo;
     }
 
     // TODO GET TICKET BY EVENT ID
@@ -45,6 +47,7 @@ namespace towerRedo.Services
         throw new Exception(towerEvent.Name + " is Sold Out!");
       }
       Ticket ticket = _repo.Create(ticketData);
+      Comment comment = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
       return ticket;
     }
 
