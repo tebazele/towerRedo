@@ -79,7 +79,7 @@ namespace towerRedo.Repositories
       a.*,
       t.*
       FROM jaEvents e
-      JOIN accounts a ON e.creatorId = a.id
+      JOIN accounts a ON @accountId = a.id
       JOIN jaTickets t ON t.accountId = e.id
       WHERE t.accountId = a.id;
       ";
