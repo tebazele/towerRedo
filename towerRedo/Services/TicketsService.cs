@@ -47,7 +47,7 @@ namespace towerRedo.Services
         throw new Exception(towerEvent.Name + " is Sold Out!");
       }
       Ticket ticket = _repo.Create(ticketData);
-      Comment comment = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
+      List<Comment> comment = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
       return ticket;
     }
 

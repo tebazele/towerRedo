@@ -81,7 +81,7 @@ public class CommentsRepository
     }, new { eventId }).ToList();
   }
 
-  internal Comment GetByEventId(int eventId, string accountId)
+  internal List<Comment> GetByEventId(int eventId, string accountId)
   {
     string sql = @"
     SELECT
@@ -89,14 +89,14 @@ public class CommentsRepository
     e.*,
     a.*
     FROM jaComments c
-    JOIN jaEvents ON e.eventId = @eventId
-    JOIN accounts on a.id = c.creatorId
-    WHERE c.eventId = @eventId
+    JOIN jaEvents e ON e.id = @eventId
+    JOIN accounts a ON a.id = c.creatorId
+    WHERE c.creatorId = @accountId && c.eventId = @eventId
     ";
     return _db.Query<Comment, TowerEvent, Account, Comment>(sql, (c, e, a) =>
     {
       c.Creator = a;
       return c;
-    }, new { eventId }).ToList();
+    }, new { eventId, accountId }).ToList();
   }
 }
