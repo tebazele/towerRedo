@@ -4,63 +4,63 @@ namespace towerRedo.Controllers;
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
-  private readonly AccountService _accountService;
-  private readonly Auth0Provider _auth0Provider;
-  private readonly TicketsService _ticketsService;
+    private readonly AccountService _accountService;
+    private readonly Auth0Provider _auth0Provider;
+    private readonly TicketsService _ticketsService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider, TicketsService ticketsService)
-  {
-    _accountService = accountService;
-    _auth0Provider = auth0Provider;
-    _ticketsService = ticketsService;
-  }
+    public AccountController(AccountService accountService, Auth0Provider auth0Provider, TicketsService ticketsService)
+    {
+        _accountService = accountService;
+        _auth0Provider = auth0Provider;
+        _ticketsService = ticketsService;
+    }
 
-  [HttpGet]
-  [Authorize]
-  public async Task<ActionResult<Account>> Get()
-  {
-    try
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<Account>> Get()
     {
-      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      return Ok(_accountService.GetOrCreateProfile(userInfo));
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            return Ok(_accountService.GetOrCreateProfile(userInfo));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
 
-  [HttpPut]
-  [Authorize]
-  public async Task<ActionResult<Account>> Edit([FromBody] Account accountBody)
-  {
-    try
+    [HttpPut]
+    [Authorize]
+    public async Task<ActionResult<Account>> Edit([FromBody] Account accountBody)
     {
-      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      Account editedAccount = _accountService.Edit(accountBody, userInfo.Email);
-      return Ok(editedAccount);
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Account editedAccount = _accountService.Edit(accountBody, userInfo.Email);
+            return Ok(editedAccount);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
 
-  // SECTION TICKETS
+    // SECTION TICKETS
 
-  [HttpGet]
-  [Authorize]
-  public async Task<ActionResult<List<TicketEvent>>> GetTickets()
-  {
-    try
+    [HttpGet("/tickets")]
+    [Authorize]
+    public async Task<ActionResult<List<TicketEvent>>> GetTickets()
     {
-      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      List<TicketEvent> tickets = _ticketsService.GetByAccountId(userInfo.Id);
-      return Ok(tickets);
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            List<TicketEvent> tickets = _ticketsService.GetByAccountId(userInfo.Id);
+            return Ok(tickets);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
 }
