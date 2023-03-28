@@ -65,7 +65,7 @@ public class EventsService
   internal String Cancel(int eventId, string userId)
   {
     TowerEvent towerEvent = this.GetOne(eventId);
-    if (towerEvent.CreatorId == userId)
+    if (towerEvent.CreatorId != userId)
     {
       throw new Exception("You can't edit " + towerEvent.Name + " event. It was created by someone else.");
     }
