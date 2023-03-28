@@ -39,7 +39,7 @@ namespace towerRedo.Services
       }
       if (towerEvent.Capacity > 0)
       {
-        towerEvent.Capacity++;
+        towerEvent.Capacity--;
         _events.Edit(towerEvent.Id, towerEvent);
       }
       else
@@ -47,7 +47,16 @@ namespace towerRedo.Services
         throw new Exception(towerEvent.Name + " is Sold Out!");
       }
       Ticket ticket = _repo.Create(ticketData);
-      List<Comment> comment = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
+      List<Comment> comments = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
+
+      // SECTION foreach edit isAttending on these comments and call commentsRepo.edit()
+      foreach (Comment c in comments)
+      {
+        c.IsAttending = true;
+        _commentsRepo.Edit(c);
+      }
+
+
       return ticket;
     }
 
@@ -98,4 +107,17 @@ namespace towerRedo.Services
       return tickets;
     }
   }
+      if (towerEvent.Capacity > 0)
+      {
+        towerEvent.Capacity++;
+        _events.Edit(towerEvent.Id, towerEvent);
+      }
+      else
+{
+  throw new Exception(towerEvent.Name + " is Sold Out!");
+}
+Ticket ticket = _repo.Create(ticketData);
+List<Comment> comment = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
+return ticket;
+    }
 }

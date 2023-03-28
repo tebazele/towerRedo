@@ -86,8 +86,7 @@ public class CommentsRepository
     string sql = @"
     SELECT
     c.*,
-    e.*,
-    a.*
+    e.*
     FROM jaComments c
     JOIN jaEvents e ON e.id = @eventId
     JOIN accounts a ON a.id = c.creatorId
