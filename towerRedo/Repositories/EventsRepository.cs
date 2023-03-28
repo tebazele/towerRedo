@@ -33,7 +33,7 @@ public class EventsRepository
         name = @name,
         description = @description,
         coverImg = @coverImg,
-        isCancelled = @isCancelled,
+        isCanceled = @isCanceled,
         location = @location,
         capacity = @capacity,
         startDate = @startDate,
