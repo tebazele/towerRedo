@@ -9,6 +9,7 @@ import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
 import "./styles/EventPageStyle.scss";
 import "../components/styles/CommentCardStyle.scss";
+import CommentForm from '../components/CommentForm.jsx';
 
 function EventPage() {
 
@@ -24,6 +25,7 @@ function EventPage() {
 
     async function getComments() {
         try {
+
             await eventsService.getComments(id)
         }
         catch (error) {
@@ -91,7 +93,8 @@ function EventPage() {
                     </div>
                 </section>
                 <section className="row justify-content-center ">
-                    <div className="col-10 bg-secondary rounded p-3">
+                    <div className="col-10 bg-secondary rounded p-3 my-4">
+                        <CommentForm />
                         {comments}
                     </div>
                 </section>
