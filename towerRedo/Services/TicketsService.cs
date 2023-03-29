@@ -70,6 +70,13 @@ namespace towerRedo.Services
         throw new Exception("Something went wrong in the repo dawg.");
       }
 
+      List<Comment> comments = _commentsRepo.GetByEventId(ticket.EventId, ticket.AccountId);
+      foreach (Comment c in comments)
+      {
+        c.IsAttending = null;
+        _commentsRepo.Edit(c);
+      }
+
       TowerEvent towerEvent = _events.GetOne(ticket.EventId);
       towerEvent.Capacity++;
       _events.Edit(towerEvent.Id, towerEvent);
