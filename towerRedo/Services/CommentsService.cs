@@ -25,7 +25,8 @@ public class CommentsService
         commentData.IsAttending = true;
       }
     }
-    Comment comment = _repo.Create(commentData);
+    Comment createdComment = _repo.Create(commentData);
+    Comment comment = _repo.GetOne(createdComment.Id);
     return comment;
   }
 
