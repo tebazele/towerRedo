@@ -39,7 +39,7 @@ namespace towerRedo.Services
       }
       if (towerEvent.Capacity > 0)
       {
-        towerEvent.Capacity++;
+        towerEvent.Capacity--;
         _events.Edit(towerEvent.Id, towerEvent);
       }
       else
