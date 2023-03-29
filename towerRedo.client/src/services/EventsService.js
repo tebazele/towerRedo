@@ -3,6 +3,11 @@ import { api } from "./AxiosService.js"
 import { AppState } from "../AppState.js"
 
 class EventsService {
+    async createComment(reqBody) {
+        const res = await api.post('api/comments', reqBody)
+        logger.log(res.data)
+        AppState.comments.push(res.data);
+    }
 
     async getOneEvent(id) {
         const res = await api.get(`api/events/${id}`)
