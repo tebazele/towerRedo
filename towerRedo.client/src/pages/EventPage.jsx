@@ -1,11 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { App } from '../App.jsx';
 import { AppState } from '../AppState.js';
+import CommentsCard from '../components/CommentsCard.jsx';
 import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
-import "./styles/EventPageStyle.scss"
+import "./styles/EventPageStyle.scss";
+import "../components/styles/CommentCardStyle.scss";
 
 function EventPage() {
 
@@ -19,17 +22,35 @@ function EventPage() {
         }
     }
 
+    async function getComments() {
+        try {
+            await eventsService.getComments(id)
+        }
+        catch (error) {
+            Pop.error(error);
+        }
+    }
+
+    let comments = AppState.comments.map(c => {
+        return (
+            <div key={c.id} className="my-3">
+                <CommentsCard comment={c} />
+            </div>
+        )
+    })
+
     useEffect(() => {
         getOneEvent()
+        getComments()
     }, [])
 
     return (
 
         <div className="EventPage">
             <div className='container-fluid'>
-                <section className="row mx-2 my-3 pos-rel">
-                    <div className='pos-abs-1 blur'></div>
-                    <div style={{ backgroundImage: `url(${AppState.activeEvent?.coverImg})` }} className="bg-active-image col-12 pos-abs-1 pt-4">
+                <section className="row mx-2 my-3">
+                    {/* <div className='blur col-12'></div> */}
+                    <div style={{ backgroundImage: `url(${AppState.activeEvent?.coverImg})` }} className="bg-active-image col-12 pt-4">
                         <section className="row m-auto">
                             <div className="col-4">
                                 <img src={AppState.activeEvent?.coverImg} className="img-fluid active-image-size border border-1" />
@@ -60,6 +81,18 @@ function EventPage() {
                             </div>
                         </section>
 
+                    </div>
+                </section>
+                <section className="row">
+                    <div className="col-12">
+                        <Link to={`/event/${id}/attendees`}>
+                            <h3>See who's attending</h3>
+                        </Link>
+                    </div>
+                </section>
+                <section className="row justify-content-center ">
+                    <div className="col-10 bg-secondary rounded p-3">
+                        {comments}
                     </div>
                 </section>
 

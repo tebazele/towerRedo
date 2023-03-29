@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.jsx';
 import EventPage from './pages/EventPage.jsx';
 import { accountService } from './services/AccountService.js';
 import AuthGuard from './utils/AuthGuard.jsx';
+import AttendeesPage from './pages/AttendeesPage.jsx';
 
 
 export const router = createHashRouter([
@@ -35,6 +36,10 @@ export const router = createHashRouter([
       {
         path: "event/:id",
         element: <EventPage />
+      },
+      {
+        path: "event/:id/attendees",
+        element: <AttendeesPage />
       }
 
     ],

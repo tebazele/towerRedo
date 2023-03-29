@@ -12,6 +12,8 @@ class ObservableAppState {
 
   activeEvent = null
 
+  comments = []
+
   constructor() {
     makeAutoObservable(this)
   }

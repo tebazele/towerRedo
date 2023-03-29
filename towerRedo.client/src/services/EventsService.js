@@ -3,6 +3,7 @@ import { api } from "./AxiosService.js"
 import { AppState } from "../AppState.js"
 
 class EventsService {
+
     async getOneEvent(id) {
         const res = await api.get(`api/events/${id}`)
         logger.log(res.data)
@@ -12,6 +13,12 @@ class EventsService {
         const res = await api.get('api/events')
         logger.log(res.data)
         AppState.events = res.data;
+    }
+
+    async getComments(id) {
+        const res = await api.get(`api/events/${id}/comments`);
+        logger.log(res.data)
+        AppState.comments = res.data
     }
 
 }
