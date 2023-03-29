@@ -1,0 +1,29 @@
+.bg-active-image {
+    height: 50vh;
+    background-position: center;
+    background-size: cover;
+}
+
+.pos-rel {
+    position: relative;
+}
+
+.pos-abs-1 {
+    position: absolute;
+}
+
+.blur {
+    filter: blur(20px);
+    height: 50vh;
+}
+
+.active-image-size {
+    height: 40vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.desc-height {
+    height: 60%;
+}
