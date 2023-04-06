@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { AppState } from '../AppState.js';
 import "./styles/EventCardStyle.scss"
 import { Link } from 'react-router-dom';
+import { Event } from "../models/Event.js";
 
 
 
@@ -11,11 +12,11 @@ export default function EventCard({ event }) {
     return (
 
         <div className="EventCard">
-            <Link to={`event/${event.id}`} >
+            <Link to={`event/${event?.id}`} >
                 <div style={{ backgroundImage: `url(${event?.coverImg})` }} className="rounded bg-event-image">
                 </div>
             </Link>
-            <h6>{event.name}</h6>
+            <h6>{event?.name}</h6>
 
         </div>
     )
@@ -23,5 +24,5 @@ export default function EventCard({ event }) {
 }
 
 EventCard.propTypes = {
-    event: PropTypes.instanceOf(Object)
+    event: PropTypes.instanceOf(Event)
 }

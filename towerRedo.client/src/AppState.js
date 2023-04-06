@@ -5,11 +5,12 @@ import { isValidProp } from "./utils/isValidProp.js"
 class ObservableAppState {
 
   user = null
-  /** @type {import('./models/Account.js').Account} */
+  /** @type {import('./models/Account.js').Account | null} */
   account = null
 
+   /** @type {import('./models/Event.js').Event[]} */
   events = []
-
+   /** @type {import('./models/Event.js').Event | null} */
   activeEvent = null
 
   comments = []
