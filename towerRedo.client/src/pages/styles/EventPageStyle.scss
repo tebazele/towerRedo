@@ -27,3 +27,37 @@
 .desc-height {
     height: 50%;
 }
+
+// FROST BACKGROUND FOR EVENT CARD
+.frosted {
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.8px);
+    -webkit-backdrop-filter: blur(8.8px);
+    height: 100%;
+}
+
+// WHITE FONT FOR EVENT CARD
+.eventDetailsFont{ 
+    -webkit-text-stroke: .5px rgba(0, 0, 0, 0.103);
+    color: rgb(255, 255, 255) !important;
+    text-shadow:
+      2px 2px 1px #000,
+      -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+      1px 1px 1px #000;
+}
+
+// BLUE FONT FOR NUMBER OF ATTENDEES
+.ticketsLeftFont{ 
+    -webkit-text-stroke: .5px rgba(0, 0, 0, 0.103);
+    color: rgb(201, 191, 244) !important;
+    text-shadow:
+      2px 2px 1px #000,
+      -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+      1px 1px 1px #000;
+}

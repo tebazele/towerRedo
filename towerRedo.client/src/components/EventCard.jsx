@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppState } from '../AppState.js';
 import "./styles/EventCardStyle.scss"
 import { Link } from 'react-router-dom';
 import { Event } from "../models/Event.js";
