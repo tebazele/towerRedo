@@ -34,7 +34,7 @@ function EventPage() {
 
     let comments = AppState.comments.map(c => {
         return (
-            <div key={c.id} className="my-3">
+            <div key={c.id} className="my-3 ">
                 <CommentsCard comment={c} />
             </div>
         )
@@ -49,15 +49,14 @@ function EventPage() {
 
         <div className="EventPage">
             <div className='container-fluid'>
-                <section className="row mx-2 my-3 eventDetailsFont rounded">
+                <section className="row mx-2 my-3 eventDetailsFont rounded ">
                     <div style={{ backgroundImage: `url(${AppState.activeEvent?.coverImg})` }} className="rounded bg-active-image col-12">
                         <section className="frosted row">
                             <div className="col-12 col-md-4 d-flex align-items-center">
-                                <img src={AppState.activeEvent?.coverImg} className="rounded img-fluid active-image-size border border-1" />
+                                <img src={AppState.activeEvent?.coverImg} className="rounded img-fluid active-image-size coolBorder" />
                             </div>
                             <div className="col-md-8">
-                                <section className="row justify-content-between">
-                                    <div className="col-md-12"><i className="mdi mdi-dots-horizontal"></i></div>
+                                <section className="row justify-content-between container-fluid mt-4">
                                     <div className="col-5 eventDetailsFont">
                                         <h1>{AppState.activeEvent?.name}</h1>
                                         <h4>{AppState.activeEvent?.location}</h4>
@@ -66,17 +65,17 @@ function EventPage() {
                                         <h1>{AppState.activeEvent?.startDate}</h1>
                                     </div>
                                 </section>
-                                <section className="row desc-height">
+                                <section className="row desc-height container-fluid">
                                     <div className="col-md-12 p-2">
                                         <p>{AppState.activeEvent?.description}</p>
                                     </div>
                                 </section>
-                                <section className="row justify-content-between">
+                                <section className="row justify-content-between container-fluid">
                                     <div className="col-md-5">
                                         <h6><span className="ticketsLeftFont">{AppState.activeEvent?.capacity}</span> spots left</h6>
                                     </div>
                                     <div className="col-md-4 text-end">
-                                        <button className='btn btn-warning'>Attend</button>
+                                        <button className='button-54'>Attend</button>
                                     </div>
                                 </section>
                             </div>
@@ -86,12 +85,12 @@ function EventPage() {
                 <section className="row">
                     <div className="col-md-12">
                         <Link to={`/event/${id}/attendees`}>
-                            <h3>See who's attending</h3>
+                            <h3 className="eventDetailsFont">See who's attending</h3>
                         </Link>
                     </div>
                 </section>
                 <section className="row justify-content-center ">
-                    <div className="col-md-10 bg-secondary rounded p-3 my-4">
+                    <div className="col-md-8 commentFormBG rounded p-3 my-4 coolBorder">
                         <CommentForm />
                         {comments}
                     </div>
