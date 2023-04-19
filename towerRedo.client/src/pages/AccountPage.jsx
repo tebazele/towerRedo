@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
 import React from "react";
 import { AppState } from "../AppState.js";
+import EditAccountForm from "../components/Account/EditAccountForm.jsx";
 
 function AccountPage() {
 
@@ -14,6 +15,7 @@ function AccountPage() {
           <p className="display-6 my-2">{AppState.account?.name}</p> <span className="mdi selectable fs-1 rounded mdi-pencil-outline">Edit Account</span>
         </div>
       </div>
+      <EditAccountForm />
     </div>
   )
 }
