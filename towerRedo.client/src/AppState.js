@@ -12,6 +12,7 @@ class ObservableAppState {
   events = []
    /** @type {import('./models/Event.js').Event | null} */
   activeEvent = null
+  tickets = []
 
   comments = []
 

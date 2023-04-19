@@ -4,6 +4,7 @@ import { AppState } from "../AppState.js"
 import { Event } from "../models/Event.js";
 
 class EventsService {
+ 
     async createComment(reqBody) {
         const res = await api.post('api/comments', reqBody)
         logger.log(res.data)
@@ -27,6 +28,21 @@ class EventsService {
         logger.log(res.data)
         AppState.comments = res.data
     }
+
+    // SECTION TICKETS
+
+    async getTickets(id) {
+        const res = await api.get(`api/events/${id}/tickets`)
+        logger.log('[GETTING:TICKETS]', res.data)
+        AppState.tickets = res.data
+    }
+
+    async deleteTicket(id) {
+        const res = await api.delete(`api/tickets/${id}`)
+        logger.log(res.data, "DELETING TICKET")
+        AppState.tickets = AppState.tickets.filter(t => t.id != id)
+    }
+   
 
 }
 

@@ -4,6 +4,11 @@ import { logger } from '../utils/Logger.js'
 import { api } from './AxiosService'
 
 class AccountService {
+  async getTickets() {
+    const res = await api.get('account/tickets')
+    logger.log('[GETTING:MyTICKETS]', res.data)
+    AppState.tickets = res.data
+  }
   async getAccount() {
     try {
       if (AppState.account) {

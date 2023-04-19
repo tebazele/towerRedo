@@ -40,6 +40,7 @@ namespace towerRedo.Controllers
         Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
         ticketData.AccountId = userInfo.Id;
         Ticket ticket = _ticketsService.Create(ticketData);
+        ticket.Creator = userInfo;
         return Ok(ticket);
       }
       catch (Exception e)

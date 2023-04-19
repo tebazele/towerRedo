@@ -9,6 +9,9 @@ import Pop from '../utils/Pop.js';
 import "./styles/EventPageStyle.scss";
 import "../components/styles/CommentCardStyle.scss";
 import CommentForm from '../components/CommentForm.jsx';
+import { logger } from "../utils/Logger.js";
+import { ticketsService } from "../services/TicketsService.js";
+import { Ticket } from "../models/Ticket.js";
 
 function EventPage() {
 
@@ -21,6 +24,46 @@ function EventPage() {
             Pop.error(error);
         }
     }
+
+    // SECTION TICKETS
+
+    async function getTickets() {
+        try {
+        await eventsService.getTickets(id)
+        } catch (error) {
+          logger.error('[ERROR]',error)
+          Pop.error(('[ERROR]'), error.message)
+        }
+    }
+
+    async function createTicket() {
+        try {
+            await ticketsService.createTicket(id)
+        } catch (error) {
+          logger.error('[ERROR]',error)
+          Pop.error(('[ERROR]'), error.message)
+        }
+    }
+
+    function findTicket() {
+        let found = AppState.tickets.find(t => t.creator?.id == AppState.account?.id)
+        console.log(AppState.tickets, 'APPSTATE TICKETS');
+        console.log(new Ticket(found), 'FINDING TICKET');
+        return new Ticket(found)
+    }
+
+     async function deleteTicket() {
+      try {
+        let ticket = findTicket()
+        await eventsService.deleteTicket(ticket.id)
+        
+      } catch (error) {
+        logger.error('[ERROR]',error)
+        Pop.error(('[ERROR]'), error.message)
+      }
+    }
+
+    // SECTION COMMENTS
 
     async function getComments() {
         try {
@@ -43,8 +86,8 @@ function EventPage() {
     useEffect(() => {
         getOneEvent()
         getComments()
+        getTickets()
     }, [])
-
     return (
 
         <div className="EventPage">
@@ -75,7 +118,7 @@ function EventPage() {
                                         <h6><span className="ticketsLeftFont">{AppState.activeEvent?.capacity}</span> spots left</h6>
                                     </div>
                                     <div className="col-md-4 text-end">
-                                        <button className='button-54'>Attend</button>
+                                        {AppState.tickets.find(t => t.creator?.id == AppState.account?.id) ? (<button  onClick={deleteTicket} className='button-54'>Cancel</button>) : (<button  onClick={createTicket} className='button-54'>Attend</button>)}                                       
                                     </div>
                                 </section>
                             </div>

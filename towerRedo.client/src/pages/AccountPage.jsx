@@ -1,10 +1,25 @@
 import { observer } from "mobx-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { AppState } from "../AppState.js";
 import EditAccountForm from "../components/Account/EditAccountForm.jsx";
+import { logger } from "../utils/Logger.js";
+import Pop from "../utils/Pop.js";
+import { accountService } from "../services/AccountService.js";
 
 function AccountPage() {
 
+  async function getTickets() {
+    try {
+      await accountService.getTickets()
+    } catch (error) {
+      logger.error('[ERROR]',error)
+      Pop.error(('[ERROR]'), error.message)
+    }
+  }
+
+  useEffect(() => {
+    getTickets()
+  }, [])
   return (
     <div className="account-page">
       <div className="card">
