@@ -1,9 +1,15 @@
 import { AppState } from '../AppState'
 import { Account } from '../models/Account.js'
 import { logger } from '../utils/Logger.js'
-import { api } from './AxiosService'
+import { api } from './AxiosService';
+import { Event } from '../models/Event.js';
 
 class AccountService {
+  async getMyEvents() {
+    const res = await api.get('account/events')
+    logger.log('[getting events i have created]', res.data)
+    AppState.myEvents = res.data.map(e => new Event(e))
+  }
   async getTickets() {
     const res = await api.get('account/tickets')
     logger.log('[GETTING:MyTICKETS]', res.data)

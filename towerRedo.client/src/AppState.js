@@ -8,10 +8,12 @@ class ObservableAppState {
   /** @type {import('./models/Account.js').Account | null} */
   account = null
 
-   /** @type {import('./models/Event.js').Event[]} */
+  /** @type {import('./models/Event.js').Event[]} */
   events = []
-   /** @type {import('./models/Event.js').Event | null} */
+  /** @type {import('./models/Event.js').Event | null} */
+
   activeEvent = null
+  myEvents = []
   tickets = []
 
   comments = []

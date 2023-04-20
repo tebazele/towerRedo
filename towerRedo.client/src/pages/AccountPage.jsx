@@ -12,16 +12,36 @@ function AccountPage() {
     try {
       await accountService.getTickets()
     } catch (error) {
-      logger.error('[ERROR]',error)
+      logger.error('[ERROR]', error)
+      Pop.error(('[ERROR]'), error.message)
+    }
+  }
+
+  async function getMyEvents() {
+    try {
+      await accountService.getMyEvents()
+    } catch (error) {
+      logger.error('[ERROR]', error)
       Pop.error(('[ERROR]'), error.message)
     }
   }
 
   useEffect(() => {
     getTickets()
+    getMyEvents()
   }, [])
   return (
-    <div className="account-page">
+    <div className="account-page container-fluid">
+      <section className="row justify-content-around">
+        <div className="col-6 text-center p-5">
+          <h5>See Events I have tickets to</h5>
+          <button className="btn btn-light">Go</button>
+        </div>
+        <div className="col-6 text-center p-5">
+          <h5>See Events I have created</h5>
+          <button className="btn btn-light">Go</button>
+        </div>
+      </section>
       <div className="card">
         <div className="card-body bg-dark p-5 text-center">
           <img src={AppState.account?.picture}
@@ -31,6 +51,7 @@ function AccountPage() {
         </div>
       </div>
       <EditAccountForm />
+
     </div>
   )
 }
