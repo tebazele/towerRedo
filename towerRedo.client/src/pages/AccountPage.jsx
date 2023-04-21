@@ -5,6 +5,7 @@ import EditAccountForm from "../components/Account/EditAccountForm.jsx";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { accountService } from "../services/AccountService.js";
+import EventCard from "../components/EventCard.jsx";
 
 function AccountPage() {
 
@@ -26,21 +27,36 @@ function AccountPage() {
     }
   }
 
-  useEffect(() => {
-    getTickets()
-    getMyEvents()
-  }, [])
+  let events;
+  if (AppState.myEvents) {
+    events = AppState.myEvents.map(e => {
+      return (
+        <div key={e.id} className="col-4 my-3">
+          <EventCard event={e} />
+        </div>
+      )
+    })
+
+  }
+
+  // useEffect(() => {
+  //   getTickets()
+  //   getMyEvents()
+  // }, [])
   return (
     <div className="account-page container-fluid">
       <section className="row justify-content-around">
-        <div className="col-6 text-center p-5">
+        <div className="col-6 text-center p-5 text-light">
           <h5>See Events I have tickets to</h5>
-          <button className="btn btn-light">Go</button>
+          <button onClick={getTickets} className="btn btn-light">Go</button>
         </div>
-        <div className="col-6 text-center p-5">
+        <div onClick={getMyEvents} className="col-6 text-center p-5 text-light">
           <h5>See Events I have created</h5>
           <button className="btn btn-light">Go</button>
         </div>
+      </section>
+      <section className="row">
+        {events}
       </section>
       <div className="card">
         <div className="card-body bg-dark p-5 text-center">
