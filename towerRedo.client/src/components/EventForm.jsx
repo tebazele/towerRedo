@@ -5,10 +5,12 @@ import { Event } from "../models/Event";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { eventsService } from "../services/EventsService.js";
+import { useNavigate } from "react-router-dom";
 
 function EventForm() {
   const editable = ({})
   let bindEditable = BindEditable(editable)
+  const navigate = useNavigate()
 
   async function handleSubmit() {
     try {
@@ -17,7 +19,9 @@ function EventForm() {
         await eventsService.editEvent(editable)
         Pop.success(`${editable.name} was edited.`)
       } else {
-        await eventsService.createEvent(editable)
+        let event = await eventsService.createEvent(editable)
+        logger.log(event)
+        navigate(`/event/${event.id}`)
         Pop.success(`${editable.name} was created! =)`)
       }
     } catch (error) {
@@ -123,7 +127,7 @@ function EventForm() {
           <select name="type" defaultValue={editable.type} onChange={bindEditable} className="form-select" aria-label="Default select example">
             <option defaultValue={editable.type} value="Concert">Concert</option>
             <option defaultValue={editable.type} value="Convention">Convention</option>
-            <option defaultValue={editable.type} value="Spot">Sport</option>
+            <option defaultValue={editable.type} value="Sport">Sport</option>
             <option defaultValue={editable.type} value="Digital">Digital</option>
             <option defaultValue={editable.type} value="Other">Other</option>
           </select>

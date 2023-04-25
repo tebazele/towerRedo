@@ -11,7 +11,9 @@ class EventsService {
    async createEvent(editable) {
       const res = await api.post('api/events', editable)
       logger.log('[CREATED EVENT]', new Event(res.data))
-      AppState.events.push(new Event(res.data))
+      const event = new Event(res.data)
+      AppState.events.push(event)
+      return event
     }
  
     async createComment(reqBody) {
