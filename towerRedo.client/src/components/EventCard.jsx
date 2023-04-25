@@ -11,11 +11,11 @@ export default function EventCard({ event }) {
     return (
 
         <div className="EventCard">
-            <Link to={`event/${event?.id}`} >
+            <Link title={`${event.name} Link`} to={`event/${event?.id}`} >
                 <div style={{ backgroundImage: `url(${event?.coverImg})` }} className="rounded bg-event-image">
                 </div>
             </Link>
-            <h6>{event?.name}</h6>
+            <p className="text-light fs-5">{event?.name}</p>
 
         </div>
     )
