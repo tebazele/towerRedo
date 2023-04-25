@@ -12,6 +12,9 @@ class TicketsService{
     runInAction(() => {
       AppState.tickets.push(res.data)
     }) 
+    if(AppState.activeEvent != null) {
+    AppState.activeEvent.capacity--
+    }
   }
 }
 

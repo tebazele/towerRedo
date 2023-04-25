@@ -38,7 +38,7 @@ function EventPage() {
 
     async function createTicket() {
         try {
-            await ticketsService.createTicket(id)
+            await ticketsService.createTicket(id)        
         } catch (error) {
           logger.error('[ERROR]',error)
           Pop.error(('[ERROR]'), error.message)
@@ -47,7 +47,7 @@ function EventPage() {
 
     function findTicket() {
         let found = AppState.tickets.find(t => t.creator?.id == AppState.account?.id)
-        console.log(AppState.tickets, 'APPSTATE TICKETS');
+        console.log(AppState.tickets, 'APP STATE TICKETS');
         console.log(new Ticket(found), 'FINDING TICKET');
         return new Ticket(found)
     }
@@ -56,7 +56,6 @@ function EventPage() {
       try {
         let ticket = findTicket()
         await eventsService.deleteTicket(ticket.id)
-        
       } catch (error) {
         logger.error('[ERROR]',error)
         Pop.error(('[ERROR]'), error.message)

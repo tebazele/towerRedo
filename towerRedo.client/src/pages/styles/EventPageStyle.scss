@@ -129,3 +129,10 @@ body{
     resize: none;
     overflow:hidden;
   }
+
+  p {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 8;
+  }
