@@ -9,9 +9,9 @@ export class Event {
     this.location = data.location,
     this.capacity = data.capacity,
     this.isCanceled = data.isCanceled,
-    this.startDate = data.StartDate,
+    this.startDate = new Date(data.startDate).toDateString('en-us'),
     this.type = data.type,
-    this.creator = new Account(data.creator),
+    this.creator = data.creator ? new Account(data.creator) : null,
     this.creatorId = data.creatorId
   }
 }

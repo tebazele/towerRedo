@@ -14,7 +14,7 @@ public class TowerEvent : DbItem<int>
     public String Location { get; set; }
     public int? Capacity { get; set; }
     public Boolean? IsCanceled { get; set; }
-    public String StartDate { get; set; }
+    public DateTime? StartDate { get; set; }
     public Type? Type { get; set; }
     public Account Creator { get; set; }
     public String CreatorId { get; set; }

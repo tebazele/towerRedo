@@ -99,8 +99,9 @@ function EventPage() {
                             </div>
                             <div className="col-md-8">
                                 <section className="row justify-content-between container-fluid mt-4">
-                                    <div className="col-5 eventDetailsFont">
-                                        <h1>{AppState.activeEvent?.name}</h1>
+                                    <div className="col-12 eventDetailsFont">
+                                        <h1>{AppState.activeEvent?.name}  {AppState.account?.id == AppState.activeEvent?.creatorId ? (<span data-bs-toggle="modal"
+      data-bs-target="#postModal" className="selectable rounded mdi mdi-dots-horizontal fs-2"></span>) : ("")}</h1>
                                         <h4>{AppState.activeEvent?.location}</h4>
                                     </div>
                                     <div className='col-md-5'>
@@ -127,7 +128,7 @@ function EventPage() {
                 <section className="row">
                     <div className="col-md-12">
                         <Link to={`/event/${id}/attendees`}>
-                            <h3 className="eventDetailsFont">See who's attending</h3>
+                            <h3 className="eventDetailsFont">See attending</h3>
                         </Link>
                     </div>
                 </section>
