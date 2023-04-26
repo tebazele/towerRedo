@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AppState } from '../AppState.js';
@@ -14,11 +14,13 @@ import { ticketsService } from "../services/TicketsService.js";
 import { Ticket } from "../models/Ticket.js";
 
 function EventPage() {
+    const [count, setCount] = useState(AppState.activeEvent?.capacity)
 
     const { id } = useParams()
     async function getOneEvent() {
         try {
             await eventsService.getOneEvent(id)
+            setCount(AppState.activeEvent.capacity)
         }
         catch (error) {
             Pop.error(error);
@@ -29,19 +31,19 @@ function EventPage() {
 
     async function getTickets() {
         try {
-        await eventsService.getTickets(id)
+            await eventsService.getTickets(id)
         } catch (error) {
-          logger.error('[ERROR]',error)
-          Pop.error(('[ERROR]'), error.message)
+            logger.error('[ERROR]', error)
+            Pop.error(('[ERROR]'), error.message)
         }
     }
 
     async function createTicket() {
         try {
-            await ticketsService.createTicket(id)        
+            await ticketsService.createTicket(id)
         } catch (error) {
-          logger.error('[ERROR]',error)
-          Pop.error(('[ERROR]'), error.message)
+            logger.error('[ERROR]', error)
+            Pop.error(('[ERROR]'), error.message)
         }
     }
 
@@ -52,14 +54,15 @@ function EventPage() {
         return new Ticket(found)
     }
 
-     async function deleteTicket() {
-      try {
-        let ticket = findTicket()
-        await eventsService.deleteTicket(ticket.id)
-      } catch (error) {
-        logger.error('[ERROR]',error)
-        Pop.error(('[ERROR]'), error.message)
-      }
+    async function deleteTicket() {
+        try {
+            let ticket = findTicket()
+            await eventsService.deleteTicket(ticket.id)
+
+        } catch (error) {
+            logger.error('[ERROR]', error)
+            Pop.error(('[ERROR]'), error.message)
+        }
     }
 
     // SECTION COMMENTS
@@ -115,10 +118,10 @@ function EventPage() {
                                 </section>
                                 <section className="row justify-content-between container-fluid">
                                     <div className="col-md-5">
-                                        <h6><span className="ticketsLeftFont">{AppState.activeEvent?.capacity}</span> spots left</h6>
+                                        <h6><span className="ticketsLeftFont">{count}</span> spots left</h6>
                                     </div>
                                     <div className="col-md-4 text-end">
-                                        {AppState.tickets.find(t => t.creator?.id == AppState.account?.id) ? (<button  onClick={deleteTicket} className='button-54'>Cancel</button>) : (<button  onClick={createTicket} className='button-54'>Attend</button>)}                                       
+                                        {AppState.tickets.find(t => t.creator?.id == AppState.account?.id) ? (<button onClick={deleteTicket} className='button-54'>Cancel</button>) : (<button onClick={createTicket} className='button-54'>Attend</button>)}
                                     </div>
                                 </section>
                             </div>
