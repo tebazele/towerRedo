@@ -90,7 +90,7 @@ public class Startup
             app.UseCors("CorsDevPolicy");
         }
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseDefaultFiles();
         app.UseStaticFiles();
