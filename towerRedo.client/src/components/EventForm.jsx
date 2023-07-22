@@ -6,9 +6,10 @@ import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { eventsService } from "../services/EventsService.js";
 import { useNavigate } from "react-router-dom";
+import { AppState } from "../AppState.js";
 
 function EventForm() {
-  const editable = ({})
+  const editable = { ...AppState.activeEvent || new Event({})}
   let bindEditable = BindEditable(editable)
   const navigate = useNavigate()
 
