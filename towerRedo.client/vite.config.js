@@ -5,7 +5,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'docs',
+    outDir: 'build',
     sourcemap: false
   },
   server: {
