@@ -18,6 +18,8 @@ class ObservableAppState {
 
   comments = []
 
+  
+
   constructor() {
     makeAutoObservable(this)
   }

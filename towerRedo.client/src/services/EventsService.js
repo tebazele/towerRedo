@@ -56,6 +56,8 @@ class EventsService {
         AppState.activeEvent.capacity++
         }
     }
+
+    
    
 
 }

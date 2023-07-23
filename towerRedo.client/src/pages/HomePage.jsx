@@ -36,9 +36,9 @@ function HomePage() {
   return (
 
     <div className="home-page container-fluid">
-      <section className="row">
+      {/* <section className="row">
         <h1>{filterBy}</h1>
-      </section>
+      </section> */}
       <div className='row'>
         <div style={{ backgroundImage: `url("https://images.unsplash.com/photo-1521055170349-25f955971658?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1746&q=80")` }} className="bg-cover-image"></div>
         <div className='col-12 d-flex justify-content-around mt-2'>
