@@ -14,11 +14,13 @@ import { ticketsService } from "../services/TicketsService.js";
 import { Ticket } from "../models/Ticket.js";
 
 function EventPage() {
+     const [count, setCount] = useState(AppState.activeEvent?.capacity);
 
     const { id } = useParams()
     async function getOneEvent() {
         try {
             await eventsService.getOneEvent(id)
+            setCount(AppState.activeEvent?.capacity)
         }
         catch (error) {
             Pop.error(error);
@@ -117,7 +119,7 @@ function EventPage() {
                                 </section>
                                 <section className="row justify-content-between container-fluid">
                                     <div className="col-md-5">
-                                        <h6><span className="ticketsLeftFont">{AppState.activeEvent?.capacity}</span> spots left</h6>
+                                        <h6><span className="ticketsLeftFont">{count}</span> spots left</h6>
                                     </div>
                                     <div className="col-md-4 text-end">
                                         {AppState.tickets.find(t => t.creator?.id == AppState.account?.id) ? (<button onClick={deleteTicket} className='button-54'>Cancel</button>) : (<button onClick={createTicket} className='button-54'>Attend</button>)}
