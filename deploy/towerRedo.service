@@ -1,0 +1,17 @@
+[Unit]
+Description=towerRedo
+
+[Service]
+WorkingDirectory=/var/www/towerRedo/towerRedo/bin/Release/net6.0/publish
+ExecStart=/root/.dotnet/dotnet /var/www/towerRedo/towerRedo/bin/Release/net6.0/publish/towerRedo.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=5
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-towerRedo
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Release
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

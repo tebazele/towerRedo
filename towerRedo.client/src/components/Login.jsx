@@ -20,8 +20,8 @@ function Login() {
   )
 
   const authenticated = (
-    <div className="my-2 my-lg-0">
-      <img src={AppState.account?.picture || AppState.user?.
+    <div className="my-2 my-lg-0 ">
+      <img  src={AppState.account?.picture || AppState.user?.
 // @ts-ignore
       picture} alt="account photo" height="40" className="rounded selectable no-select" data-bs-toggle="dropdown"
         aria-expanded="false" />
@@ -44,7 +44,7 @@ function Login() {
 
   return (
     <div>
-      <span className="navbar-text">
+      <span className="navbar-text align-end">
         {!AppState.account?.id ? notAuthenticated : authenticated}
       </span>
     </div>

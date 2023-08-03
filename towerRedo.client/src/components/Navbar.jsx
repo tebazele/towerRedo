@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useResolvedPath } from "react-router-dom";
 // @ts-ignore
-import logo from '../assets/img/cw-logo.png';
+import logo from '../assets/img/turtle.png';
 import Login from "./Login.jsx";
 import { logger } from "../utils/Logger";
 
@@ -13,8 +13,8 @@ export function Navbar() {
   function showButton() {
     if(route.pathname == '/Account') {
       return (
-      <button data-bs-toggle="modal"
-      data-bs-target="#postModal">Click me!!</button>
+      <button className="btn btn-primary" data-bs-toggle="modal"
+      data-bs-target="#postModal">Create Event</button>
       )
     } else {
       return ""
@@ -25,10 +25,11 @@ useEffect(() => {
   logger.log(route.pathname, 'useParams()')
 })
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3 justify-content-between">
       <Link className="navbar-brand d-flex" to={''}>
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex align-items-center">
           <img alt="logo" src={logo} height="45" />
+          <h1 className="text-light">TOWER</h1>
         </div>
       </Link>
       <button
@@ -45,13 +46,13 @@ useEffect(() => {
 
       {showButton()}
       
-      <div className="collapse navbar-collapse" id="navbarText">
+      <div className="collapse navbar-collapse align-items-end" id="navbarText">
         <ul className="navbar-nav me-auto">
-          <li>
+          {/* <li>
             <Link to={'About'} className="btn text-success lighten-30 selectable text-uppercase">
               About
             </Link>
-          </li>
+          </li> */}
         </ul>
         <Login />
       </div >
