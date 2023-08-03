@@ -69,7 +69,6 @@ function EventPage() {
 
     async function getComments() {
         try {
-
             await eventsService.getComments(id)
         }
         catch (error) {

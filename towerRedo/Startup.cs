@@ -52,7 +52,7 @@ public class Startup
                 .AllowAnyHeader()
                 .AllowCredentials()
                 .WithOrigins(new string[]{
-                "http://localhost:8080", "http://localhost:8081"
+                "http://localhost:8080", "http://localhost:8081", "http://localhost:3000"
               });
               });
         });
@@ -90,7 +90,7 @@ public class Startup
             app.UseCors("CorsDevPolicy");
         }
 
-        app.UseHttpsRedirection();
+        // app.UseHttpsRedirection();
 
         app.UseDefaultFiles();
         app.UseStaticFiles();

@@ -29,6 +29,13 @@ CREATE TABLE
         Foreign Key (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
     ) default charset utf8;
 
+INSERT INTO jaEvents
+        (name, description, coverImg, location, capacity, startDate, type, creatorId)
+        VALUES 
+        ("Daft Punk @ the Moon", "Daft Punk @ the Moon.", "https://www.nme.com/wp-content/uploads/2017/09/GettyImages-74600258-696x442.jpg", "The Moon", 3, @startDate, "Concert", "6451c133e680428c290336b3");
+        SELECT LAST_INSERT_ID();
+        ;
+
 DROP TABLE jaEvents;
 
 CREATE TABLE
